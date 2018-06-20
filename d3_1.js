@@ -1,5 +1,5 @@
-const width = 500,
-  height = 500;
+const width = 750,
+  height = 750;
 
 const svg = d3
   .select("svg")
@@ -7,7 +7,9 @@ const svg = d3
   .attr("height", height)
   .attr("class", "svg-container")
   .append("g")
-  .attr("transform", "translate(0,0)");
+  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+// .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+//      ==> this will set the initial setup at the center
 
 // const circle1 = svg
 //   .append("circle")
@@ -45,16 +47,16 @@ d3.json("./refugee_data.json", function(data) {
   // SCALE
 
   var scale = d3
-    .scaleLinear()
+    .scaleSqrt()
     // .linear()
-    .domain([1, 5000])
-    .range([20, 480]);
+    .domain([1, 10000])
+    .range([1, 10]);
 
   var colorScale = d3
     .scaleLinear()
     // .linear()
-    .domain([1, 50])
-    .range(["green", "red"]);
+    .domain([1, 100000])
+    .range(["red", "green"]);
 
   var circle = svg
     .selectAll("circle")
@@ -62,16 +64,16 @@ d3.json("./refugee_data.json", function(data) {
     .enter()
     .append("circle")
     .attr("cx", d => {
-      return d.asylum[1990] / 1500;
+      return scale(d.asylum[1990]);
     })
     .attr("cy", d => {
-      return d.asylum[1990] / 1500;
+      return scale(d.asylum[1990]);
     })
     .attr("r", d => {
-      return d.asylum[1990] / 10000;
+      return scale(d.asylum[1990]);
     })
     .attr("fill", d => {
-      return colorScale(d);
+      return colorScale(d.asylum[1990]);
     })
     .attr("stroke", "red")
     .attr("stroke-width", 0.5)
@@ -91,13 +93,13 @@ d3.json("./refugee_data.json", function(data) {
 
   var simulation = d3
     .forceSimulation()
-    .force("x", d3.forceX(width / 2).strength(0.1))
-    .force("y", d3.forceY(height / 2).strength(0.1))
+    .force("x", d3.forceX().strength(0.05))
+    // .force("x", d3.forceX(width/2).strength(0.05)) ==> width/2 if translate is (0,0)
+    .force("y", d3.forceY().strength(0.05))
     .force(
       "collide",
       d3.forceCollide(d => {
-        console.log(d.asylum[1990] / 1500 + 10);
-        return scale(d.asylum[1990] / 1500 + 10);
+        return scale(d.asylum[1990]);
       })
     );
 
