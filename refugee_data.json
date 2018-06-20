@@ -1,5 +1,6 @@
 [
   {
+    "imagePath": "flags/USA.svg",
     "code": "USA",
     "country": "United States of America",
     "asylum": {
@@ -62,6 +63,7 @@
     }
   },
   {
+    "imagePath": "flags/CAN.svg",
     "code": "CAN",
     "country": "Canada",
     "origin": {
@@ -123,6 +125,7 @@
     }
   },
   {
+    "imagePath": "flags/MEX.svg",
     "code": "MEX",
     "country": "Mexico",
     "asylum": {
@@ -181,6 +184,7 @@
     }
   },
   {
+    "imagePath": "flags/ARG.svg",
     "code": "ARG",
     "country": "Argentina",
     "asylum": {
@@ -243,6 +247,7 @@
     }
   },
   {
+    "imagePath": "flags/THA.svg",
     "code": "THA",
     "country": "Thailand",
     "asylum": {
@@ -305,6 +310,7 @@
     }
   },
   {
+    "imagePath": "flags/ITA.svg",
     "code": "ITA",
     "country": "Italy",
     "asylum": {

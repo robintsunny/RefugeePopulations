@@ -1,4 +1,4 @@
-const width = 750,
+const width = 1500,
   height = 750;
 
 const svg = d3
@@ -11,39 +11,9 @@ const svg = d3
 // .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 //      ==> this will set the initial setup at the center
 
-// const circle1 = svg
-//   .append("circle")
-//   .attr("cx", 200)
-//   .attr("cy", 200)
-//   .attr("r", 40)
-//   .attr("fill", "steelblue")
-//   .attr("fill-opacity", 0.5)
-//   .attr("stroke", "red");
-//
-// const circle2 = svg
-//   .append("circle")
-//   .attr("cx", 400)
-//   .attr("cy", 200)
-//   .attr("r", 40)
-//   .attr("fill", "purple")
-//   .attr("fill-opacity", 0.5)
-//   .attr("stroke", "green");
-
-// circle1
-//   .transition()
-//   .attr("cx", () => {
-//     return Math.random() * width;
-//   })
-//   .attr("cy", () => {
-//     return Math.random() * height;
-//   });
-
-// data = [10, 50, 90, 130, 170, 190];
-
-// var map = svg.append("g").attr("id", "map");
+var defs = svg.append("defs");
 
 d3.json("./refugee_data.json", function(data) {
-  // console.log(data);
   // SCALE
 
   var scale = d3
@@ -57,6 +27,26 @@ d3.json("./refugee_data.json", function(data) {
     // .linear()
     .domain([1, 100000])
     .range(["red", "green"]);
+
+  defs
+    .selectAll(".flag-pattern")
+    .data(data)
+    .enter()
+    .append("pattern")
+    .attr("class", "flag-pattern")
+    .attr("id", d => {
+      return d.code;
+    })
+    .attr("height", "100%")
+    .attr("width", "100%")
+    .attr("patternContentUnits", "objectBoundingBox")
+    .append("image")
+    .attr("height", "1")
+    .attr("width", "1")
+    .attr("preserveAspectRatio", "none")
+    .attr("xlink:href", d => {
+      return d.imagePath;
+    });
 
   var circle = svg
     .selectAll("circle")
@@ -73,10 +63,10 @@ d3.json("./refugee_data.json", function(data) {
       return scale(d.asylum[1990]);
     })
     .attr("fill", d => {
-      return colorScale(d.asylum[1990]);
+      return "url(#" + d.code + ")";
     })
-    .attr("stroke", "red")
-    .attr("stroke-width", 0.5)
+    // .attr("stroke", "red")
+    // .attr("stroke-width", 0.5)
     .attr("fill-opacity", 0.3)
     .on("mouseover", function(d) {
       d3.select(this)
@@ -87,9 +77,13 @@ d3.json("./refugee_data.json", function(data) {
         .attr("font-color", "blue");
     })
     .on("mouseout", function(d) {
-      d3.select(this).attr("fill-opacity", 0.3);
+      d3.select(this).attr("fill-opacity", 0.5);
       // d3.selectAll("text.country-code").remove();
     });
+
+  d3.select("#y1990").on("click", () => {
+    console.log("CLICKKKKKKK");
+  });
 
   var simulation = d3
     .forceSimulation()
@@ -158,3 +152,34 @@ d3.json("./refugee_data.json", function(data) {
   //     return Math.random() * height;
   //   });
 });
+
+// const circle1 = svg
+//   .append("circle")
+//   .attr("cx", 200)
+//   .attr("cy", 200)
+//   .attr("r", 40)
+//   .attr("fill", "steelblue")
+//   .attr("fill-opacity", 0.5)
+//   .attr("stroke", "red");
+//
+// const circle2 = svg
+//   .append("circle")
+//   .attr("cx", 400)
+//   .attr("cy", 200)
+//   .attr("r", 40)
+//   .attr("fill", "purple")
+//   .attr("fill-opacity", 0.5)
+//   .attr("stroke", "green");
+
+// circle1
+//   .transition()
+//   .attr("cx", () => {
+//     return Math.random() * width;
+//   })
+//   .attr("cy", () => {
+//     return Math.random() * height;
+//   });
+
+// data = [10, 50, 90, 130, 170, 190];
+
+// var map = svg.append("g").attr("id", "map");
