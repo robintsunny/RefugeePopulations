@@ -1,6 +1,6 @@
 function refugees(type, targetYear) {
   const width = 1900,
-    height = 875;
+    height = 700;
 
   const svg = d3
     .select("svg")
