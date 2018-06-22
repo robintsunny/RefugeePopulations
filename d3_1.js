@@ -2,6 +2,15 @@ function refugees(type, targetYear) {
   const width = 1900,
     height = 700;
 
+  let inputFile;
+  if (type === "origin") {
+    inputFile = "./refugee_data1.json";
+  } else if (type === "asylum") {
+    inputFile = "./refugee_data.json";
+  }
+
+  console.log(inputFile);
+
   const svg = d3
     .select("svg")
     .attr("width", width)
@@ -14,7 +23,7 @@ function refugees(type, targetYear) {
 
   var defs = svg.append("defs");
 
-  d3.json("./refugee_data.json", function(data) {
+  d3.json(inputFile, function(data) {
     /////////////////////////////////////////////////////////////////////////////
     ////////////////                SORT DATA                  //////////////////
     /////////////////////////////////////////////////////////////////////////////
