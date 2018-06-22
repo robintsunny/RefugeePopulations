@@ -1,3 +1,58 @@
+body {
+  font-family: "Markazi Text", serif;
+}
+
 .svg-container {
-  background-color: black;
+  background-color: none;
+  position: absolute;
+}
+
+.vsc-initialized {
+  background-image: url(../ref_bg.jpg);
+}
+
+.header {
+  color: white;
+}
+
+.infobox {
+  top: 0px;
+  position: absolute;
+  font-size: 36px;
+  text-align: center;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 300px;
+  width: 500px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  box-shadow: 0px 0px -100px;
+}
+
+.ccc {
+  opacity: 1;
+}
+
+.continent {
+  margin: 20px;
+  color: #bf9aca;
+  padding: 20px;
+  width: 90px;
+  text-align: center;
+  display: flex;
+  border: 1px solid white;
+  background-color: #694873;
+}
+.combine {
+  margin: 20px;
+  background-color: #694873;
+  text-align: center;
+  border: 1px solid white;
+  color: #bf9aca;
+  padding: 20px;
+  width: 90px;
+
+  display: flex;
 }

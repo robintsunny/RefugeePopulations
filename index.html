@@ -3,78 +3,76 @@
 
 
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Markazi+Text" rel="stylesheet">
     <meta charset="utf-8">
     <title>RefugeePopulations</title>
     <link rel="stylesheet" href="css/style.css">
-    <h1>Refugee Population Data</h1>
-    <p>by Robin Sunny</p>
+    <h1 class="header">Refugee Population Data</h1>
+    <p class="header">by Robin Sunny</p>
   </head>
 
 
 
 
   <body>
-    <button id="continent">By Continent</button>
-    <button id="combine">Global</button>
+    <button class="continent" id="continent">Sort By Continent</button>
+    <button class="combine" id="combine">Combine</button>
 
-    <button id="asylum">Country of Asylum</button>
-    <button id="origin">Country of Origin</button>
+    <select id="AO">
+      <option selected value="'asylum'">Country of Asylum</option>
+      <option value="'origin'">Country of Origin</option>
+    </select>
 
-    <select id = "year">
+    <select id="year">
+      <option value="1990">1990</option>
+      <option value="1991">1991</option>
+      <option value="1992">1992</option>
+      <option value="1993">1993</option>
+      <option value="1994">1994</option>
+      <option value="1995">1995</option>
+      <option value="1996">1996</option>
+      <option value="1997">1997</option>
+      <option value="1998">1998</option>
+      <option value="1999">1999</option>
+      <option value="2000">2000</option>
+      <option value="2001">2001</option>
+      <option value="2002">2002</option>
+      <option value="2003">2003</option>
+      <option value="2004">2004</option>
+      <option value="2005">2005</option>
+      <option value="2006">2006</option>
+      <option value="2007">2007</option>
+      <option value="2008">2008</option>
+      <option value="2009">2009</option>
+      <option value="2010">2010</option>
+      <option value="2011">2011</option>
+      <option value="2012">2012</option>
+      <option value="2013">2013</option>
+      <option value="2014">2014</option>
+      <option value="2015">2015</option>
+      <option selected  value="2016">2016</button>
+    </select>
 
-    <option value="1990">1990</option>
-    <option value="1991">1991</option>
-    <option value="1992">1992</option>
-    <option value="1993">1993</option>
-    <option value="1994">1994</option>
-    <option value="1995">1995</option>
-    <option value="1996">1996</option>
-    <option value="1997">1997</option>
-    <option value="1998">1998</option>
-    <option value="1999">1999</option>
-    <option value="2000">2000</option>
-    <option value="2001">2001</option>
-    <option value="2002">2002</option>
-    <option value="2003">2003</option>
-    <option value="2004">2004</option>
-    <option value="2005">2005</option>
-    <option value="2006">2006</option>
-    <option value="2007">2007</option>
-    <option value="2008">2008</option>
-    <option value="2009">2009</option>
-    <option value="2010">2010</option>
-    <option value="2011">2011</option>
-    <option value="2012">2012</option>
-    <option value="2013">2013</option>
-    <option value="2014">2014</option>
-    <option value="2015">2015</option>
-    <option value="2016">2016</button>
-  </select>
-
+    <div  class="infobox">
+      <h3 class="ccc">Hover over a circle to learn more information!</h3>
+      <h3 class="ttt"></h3>
+      <h3 class="yyy"></h3>
+<h4 class="rrr"></h4>
+    </div>
 
 <div>
-    <svg>
 
-    </svg>
+
+
+
+
+      <svg></svg>
+
       <script src="https://d3js.org/d3.v4.min.js"></script>
-
-
-<!--
-      <script  src="https://d3js.org/d3-collection.v1.min.js"></script>
-      <script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
-      <script src="https://d3js.org/d3-quadtree.v1.min.js"></script>
-      <script src="https://d3js.org/d3-timer.v1.min.js"></script>
-      <script src="https://d3js.org/d3-force.v1.min.js"></script> -->
-
-
-
-
-      <!-- <script src="./example.js"></script> -->
-      <!-- <script src="./ex2.js"></script> -->
-      <!-- <script src="./ex3.js"></script> -->
-      <!-- <script src="./ex4.js"></script> -->
       <script src="./d3_1.js"></script>
+
     </div>
+
   </body>
 
 

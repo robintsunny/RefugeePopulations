@@ -1,5 +1,3 @@
-var targetYear = 1990;
-
 function refugees(type, targetYear) {
   const width = 1900,
     height = 875;
@@ -11,12 +9,19 @@ function refugees(type, targetYear) {
     .attr("class", "svg-container")
     .append("g")
     // .attr("transform", "translate(0,0)");
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    .attr("transform", "translate(" + width / 2 + "," + height / 3.5 + ")");
   //      ==> this will set the initial setup at the center
 
   var defs = svg.append("defs");
 
   d3.json("./refugee_data.json", function(data) {
+    /////////////////////////////////////////////////////////////////////////////
+    ////////////////                SORT DATA                  //////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    data = data.sort((b, a) => {
+      return a[type][targetYear] - b[type][targetYear];
+    });
+
     /////////////////////////////////////////////////////////////////////////////
     ////////////////               CREATE SCALE                //////////////////
     /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +30,7 @@ function refugees(type, targetYear) {
       .scaleSqrt()
       // .linear()
       .domain([0, 5000000])
-      .range([0, 100]);
+      .range([0, 120]);
 
     /////////////////////////////////////////////////////////////////////////////
     ////////////////              CREATE FLAG IMG              //////////////////
@@ -78,151 +83,63 @@ function refugees(type, targetYear) {
       })
       .attr("stroke", "white")
       .attr("fill-opacity", 0.7)
+      // .on("mouseover", function(d) {
+      //   d3.select(this)
+      //     .attr("fill-opacity", 1)
+      //     .append("text")
+      //     .attr("class", "text-code")
+      //     .text(d.code);
+      //   console.log(d);
+      // })
       .on("mouseover", function(d) {
-        d3.select(this)
-          .attr("fill-opacity", 1)
-          // .append("text")
-          // .attr("class", "code")
-          // .text(d.code);
-          .attr("font-color", "blue");
+        console.log(d);
+        let actionType;
+        if (type === "asylum") {
+          actionType = "came to";
+        } else {
+          actionType = "left";
+        }
+        d3.select(this).attr("fill-opacity", 1);
+        d3.select(".infobox .ccc").text(d.code);
+        d3.select(".infobox .yyy").text(
+          "In " +
+            String(targetYear) +
+            ", " +
+            String(d[type][targetYear].toLocaleString()) +
+            " refugees " +
+            actionType +
+            " " +
+            String(d.country)
+        );
+        // d3.select(".infobox .yyy").text(targetYear);
+        // d3.select(".infobox .ttt").text("Country of " + type);
+        // d3.select(".infobox .rrr").text(d[type][targetYear]);
+        d3.select(".infobox").style("visibility", "visible");
       })
       .on("mouseout", function(d) {
+        // d3.selectAll(".infobox").remove();
+        d3.select(".infobox").style("visibility", "hidden");
         d3.select(this).attr("fill-opacity", 0.5);
-        // d3.selectAll("text.country-code").remove();
       });
 
     /////////////////////////////////////////////////////////////////////////////
     ////////////////           CHANGE YEAR OR ASY-ORI          //////////////////
     /////////////////////////////////////////////////////////////////////////////
     AO = type;
+    yr = targetYear;
 
     d3.select("#year").on("change", function() {
-      var yr = eval(d3.select(this).property("value"));
+      yr = eval(d3.select(this).property("value"));
       svg.selectAll("circle").remove();
+
       refugees(AO, yr);
     });
 
-    // d3.select("#y1990").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1990);
-    // });
-    // d3.select("#y1991").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1991);
-    // });
-    // d3.select("#y1992").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1992);
-    // });
-    // d3.select("#y1993").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1993);
-    // });
-    // d3.select("#y1994").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1994);
-    // });
-    // d3.select("#y1995").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1995);
-    // });
-    // d3.select("#y1996").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1996);
-    // });
-    // d3.select("#y1997").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1997);
-    // });
-    // d3.select("#y1999").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1999);
-    // });
-    // d3.select("#y1998").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1998);
-    // });
-    // d3.select("#y1999").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 1999);
-    // });
-    // d3.select("#y2000").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2000);
-    // });
-    // d3.select("#y2001").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2001);
-    // });
-    // d3.select("#y2002").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2002);
-    // });
-    // d3.select("#y2003").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2003);
-    // });
-    // d3.select("#y2004").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2004);
-    // });
-    // d3.select("#y2005").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2005);
-    // });
-    // d3.select("#y2006").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2006);
-    // });
-    // d3.select("#y2007").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2007);
-    // });
-    // d3.select("#y2008").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2008);
-    // });
-    // d3.select("#y2009").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2009);
-    // });
-    // d3.select("#y2010").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2010);
-    // });
-    // d3.select("#y2011").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2011);
-    // });
-    // d3.select("#y2012").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2012);
-    // });
-    // d3.select("#y2013").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2013);
-    // });
-    // d3.select("#y2014").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2014);
-    // });
-    // d3.select("#y2015").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2015);
-    // });
-    // d3.select("#y2016").on("click", () => {
-    //   svg.selectAll("circle").remove();
-    //   refugees(AO, 2016);
-    // });
+    d3.select("#AO").on("change", function() {
+      AO = String(eval(d3.select(this).property("value")));
+      svg.selectAll("circle").remove();
 
-    yr = targetYear;
-    d3.select("#origin").on("click", () => {
-      svg.selectAll("circle").remove();
-      refugees("origin", yr);
-    });
-    d3.select("#asylum").on("click", () => {
-      svg.selectAll("circle").remove();
-      refugees("asylum", yr);
+      refugees(AO, yr);
     });
 
     /////////////////////////////////////////////////////////////////////////////
@@ -286,8 +203,8 @@ function refugees(type, targetYear) {
           return (width * 3) / 7;
         }
       })
-      .strength(0.05);
+      .strength(0.08);
   });
 }
 
-refugees("asylum", 1990);
+refugees("asylum", 2016);
