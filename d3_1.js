@@ -1,12 +1,12 @@
 function refugees(type, targetYear) {
   const width = 1900,
-    height = 700;
+    height = 1000;
 
   let inputFile;
   if (type === "origin") {
-    inputFile = "./refugee_data1.json";
+    inputFile = "./origin.csv";
   } else if (type === "asylum") {
-    inputFile = "./refugee_data.json";
+    inputFile = "./asylum.csv";
   }
 
   console.log(inputFile);
@@ -23,12 +23,12 @@ function refugees(type, targetYear) {
 
   var defs = svg.append("defs");
 
-  d3.json(inputFile, function(data) {
+  d3.csv(inputFile, function(data) {
     /////////////////////////////////////////////////////////////////////////////
     ////////////////                SORT DATA                  //////////////////
     /////////////////////////////////////////////////////////////////////////////
     data = data.sort((b, a) => {
-      return a[type][targetYear] - b[type][targetYear];
+      return a[targetYear] - b[targetYear];
     });
 
     /////////////////////////////////////////////////////////////////////////////
@@ -73,18 +73,18 @@ function refugees(type, targetYear) {
       .enter()
       .append("circle")
       .attr("cx", d => {
-        if (d[type][targetYear] !== 0) {
-          return scale(d[type][targetYear]);
+        if (d[targetYear] !== 0) {
+          return scale(d[targetYear]);
         }
       })
       .attr("cy", d => {
-        if (d[type][targetYear] !== 0) {
-          return scale(d[type][targetYear]);
+        if (d[targetYear] !== 0) {
+          return scale(d[targetYear]);
         }
       })
       .attr("r", d => {
-        if (d[type][targetYear] !== 0) {
-          return scale(d[type][targetYear]);
+        if (d[targetYear] !== 0) {
+          return scale(d[targetYear]);
         }
       })
       .attr("fill", d => {
@@ -114,7 +114,7 @@ function refugees(type, targetYear) {
           "In " +
             String(targetYear) +
             ", " +
-            String(d[type][targetYear].toLocaleString()) +
+            String(d[targetYear].toLocaleString()) +
             " refugees " +
             actionType +
             " " +
@@ -163,7 +163,7 @@ function refugees(type, targetYear) {
     d3.select("#combine").on("click", () => {
       simulation
         .force("x", forceXCombine)
-        .alphaTarget(0.5)
+        .alphaTarget(0.1)
         .restart();
     });
 
@@ -171,9 +171,11 @@ function refugees(type, targetYear) {
 
     var forceY = d3.forceY().strength(0.05);
 
-    var forceCollide = d3.forceCollide(d => {
-      return scale(d[type][targetYear]);
-    });
+    var forceCollide = d3
+      .forceCollide(d => {
+        return scale(d[targetYear]);
+      })
+      .strength(0.99);
 
     var simulation = d3
       .forceSimulation()

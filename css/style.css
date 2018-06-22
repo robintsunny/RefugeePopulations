@@ -9,6 +9,7 @@ body {
 
 .vsc-initialized {
   background-image: url(../ref_bg.jpg);
+  background-repeat: no-repeat;
 }
 
 .header {
