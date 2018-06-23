@@ -1,17 +1,22 @@
 body {
   font-family: "Markazi Text", serif;
+  justify-content: center;
 }
 
 .svg-container {
   background-color: none;
   position: absolute;
+  /* display: flex; */
 }
 
 .vsc-initialized {
-  background-image: url(../ref_bg.jpg);
+  background-image: url(./ref_bg.jpg);
   background-repeat: no-repeat;
 }
 
+.circley {
+  /* display: flex; */
+}
 .header {
   color: white;
 }
@@ -87,4 +92,11 @@ body {
 }
 .year {
   width: 75px;
+}
+#chart {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
 }
